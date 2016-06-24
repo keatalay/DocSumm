@@ -6,6 +6,7 @@ TextRank is a graph-based ranking model for text processing based on Google's Pa
 ## Dependencies:
 * [NetworkX](https://networkx.github.io/)
 * [Natural Language Toolkit](http://www.nltk.org/)
+
 ## Running DocSumm
 DocSumm takes three arguments. The first is the path to the target document. The second is the desired length of the document-summary represented as a percentage of the length of the original document (expressed as a value between 0 and 1). The third is optional and specifies which stemming algorithm to use in the process of normalizing the text in the target document. The options are NLTK's Porter Stemmer (-p), Lancaster Stemmer (-l), Snowball Stemmer (-s), Regex Stemmer (-r), or the WordNet Lemmatizer (-w). If no stemmer is specified, the Porter stemming algorithm will be applied by default.
 
