@@ -1,6 +1,6 @@
 # DocSumm
 
-#### DocSumm is an automatic document-summary generator which employs the Mihalcea and Tarau [(2004)](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) TextRank algorithm.
+#### DocSumm is an automatic document-summary generator which employs Mihalcea and Tarau's [(2004)](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) TextRank.
 TextRank is a graph-based ranking model for text processing based on Google's PageRank algorithm [(Brin and Page, 1998)](http://infolab.stanford.edu/~backrub/google.html).
 
 ## Dependencies:
@@ -29,4 +29,5 @@ Currently, DocSumm only accepts plaintext files with a .txt filename extension. 
 
 ## Optimizing Your Target Document 
 DocSumm works best on documents with a relatively small degree of thematic variation. Therefore, isolating thematically consistent portions of texts which otherwise deal with a wide range of subjects and running DocSumm on these individually will produce summaries that are more informative and structurally more similar to ones that a human might produce. These chunks of text don't need to be short (I've included some relatively long examples which do well), the point is that they ought to be relatively thematically consistent. I'm looking at ways of overcoming the problem of thematic variety within a document, but until then the best approach is probably to split your document up. 
+
 
