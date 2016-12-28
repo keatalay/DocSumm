@@ -1,25 +1,46 @@
 import sys
-import math
+import re
 import codecs
 import tr_func
 import operator
 import networkx as nx
+import urllib2
+from goose import Goose
 from nltk.tokenize.punkt import PunktSentenceTokenizer
 
 # Assign variables to contain arguments passed
 # to script and read in target document.
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     stem_type = '-p'
 else:
-    stem_type = sys.argv[3]
+    stem_type = sys.argv[4]
 
 doc_path = sys.argv[1]
+doc_type = sys.argv[3]
 sum_perc = float(sys.argv[2])
-doc = open(doc_path, 'r')
-doc = codecs.open(doc_path, encoding='utf-8', mode='r')
 
-text = doc.read()
-text = text.encode('ascii', 'ignore')
+# Determine if the target document is a webpage or
+# a text document stored locally
+if doc_type == '-l':
+    doc = open(doc_path, 'r')
+    doc = codecs.open(doc_path, encoding='utf-8', mode='r')
+    text = doc.read()
+    text = text.encode('ascii', 'ignore')
+elif doc_type == '-w':
+    g = Goose()
+    # determine if this is a New York Times url, in which case
+    # we cannot use goose alone and must also rely on urllib2
+    if re.search('www.nytimes', doc_path):
+        # do the nytimes thing
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+        response = opener.open(doc_path)
+        raw_html = response.read()
+        article = g.extract(raw_html=raw_html)
+        text = article.cleaned_text.encode('ascii', 'ignore')
+    else:
+        # just use goose
+        article = g.extract(url=doc_path)
+        text = article.cleaned_text.encode('ascii', 'ignore')
 
 # Tokenize the document to be summarized
 tok = PunktSentenceTokenizer()
@@ -45,7 +66,13 @@ sorted_rankings = sorted(
     rankings.items(), key=operator.itemgetter(1), reverse=True)
 
 # Open a new file and write the document summary.
-out = open(doc_path.replace('.txt', '') + '_Summary.txt', 'w')
+
+if doc_type == '-w':
+    out_name = article.title.replace(' ', '_') + '_summary.txt'
+else:
+    out_name = doc_path.replace('.txt', '') + '_summary.txt'
+
+out = open(out_name, 'w')
 sum_length = int(sum_perc * len(sentences))
 out.write('\t')
 for x in range(0, sum_length):
