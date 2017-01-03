@@ -30,7 +30,9 @@ elif doc_type == '-w':
     g = Goose()
     # determine if this is a New York Times url, in which case
     # we cannot use goose alone and must also rely on urllib2
-    if re.search('www.nytimes', doc_path):
+    sites = 'www.(nytimes)|(theonion)'
+    if re.search(sites, doc_path):
+        print('handling special case')
         # do the nytimes thing
         opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
         response = opener.open(doc_path)
@@ -68,9 +70,7 @@ sorted_rankings = sorted(
 # Open a new file and write the document summary.
 
 if doc_type == '-w':
-    out_name = article.title.replace(' ', '_') + '_summary.txt'
-else:
-    out_name = doc_path.replace('.txt', '') + '_summary.txt'
+    out_name = article.title.replace(' ', '_') + '_summaryary.txt'
 
 out = open(out_name, 'w')
 sum_length = int(sum_perc * len(sentences))
