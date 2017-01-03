@@ -1,6 +1,6 @@
 # DocSumm
 
-#### DocSumm is an automatic document-summary generator with Mihalcea and Tarau's [(2004)](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) TextRank at its core.
+#### DocSumm is an automated document-summary generator with Mihalcea and Tarau's [(2004)](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) TextRank at its core.
 TextRank is a graph-based ranking model for text processing based on Google's PageRank algorithm [(Brin and Page, 1998)](http://infolab.stanford.edu/~backrub/google.html).
 
 ## Dependencies:
