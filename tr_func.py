@@ -20,7 +20,6 @@ def strip_non_ascii(word):
 
 def normalize(sentences, stem_type):
     G = nx.DiGraph()
-
     # Create stemmer object of the type specified by stem_type
     stemmers = {
         '-p': PorterStemmer(),
